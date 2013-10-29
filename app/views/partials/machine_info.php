@@ -16,15 +16,18 @@
 				<?endif?><br />
 			</h4>
 			<small class="muted">
+				<?if($machine->machine_desc):?>
 				<?=$machine->machine_desc?>
+				<?else:?>
 				<?=$machine->machine_model?>
+				<?endif?>
 				<br />
 				<?=$report->long_username?>
 				<?if($report->console_user):?>
 				(<?=$report->console_user?>)
 				<?endif?>
 				<br />
-				Warranty Coverage: 
+				
 				<?if ($warranty->status == "Supported"):?>
 					<span class='text-success'>Supported until 
 						<?=$warranty->end_date?>
@@ -43,12 +46,13 @@
 				<?else:?>
 					<span class='text-danger'><?=$warranty->status?></span>
 				<?endif?>
+				<a title="Recheck Warranty Status" href="<?php echo url('clients/recheck_warranty/' . $serial_number);?>">
+					<i class="icon-refresh"></i>
+				</a><br>
+				Serial: <?=$serial_number?>
 
 				</small>
-				<hr />
-				<a class="btn btn-default btn-xs" href="<?php echo url('clients/recheck_warranty/' . $serial_number);?>">
-					Recheck Warranty Status
-				</a>
+	
 		</div>
 		<div class="col-md-4 col-xs-6">
 			<small>
@@ -58,8 +62,6 @@
 							. $machine->cpu_arch . ')'?>&nbsp;</dd>
 					<dt>CPU Speed</dt>
 					<dd><?=$machine->current_processor_speed?> ( <?=$machine->number_processors?> core )</dd>
-					<dt>Serial Number</dt>
-					<dd><?=$serial_number?>&nbsp;</dd>
 					<dt>SMC Version</dt>
 					<dd><?=$machine->SMC_version_system?>&nbsp;</dd>
 					<dt>Boot ROM</dt>
@@ -106,6 +108,8 @@
 							$(this).html(moment($(this).attr('datetime') * 1000).fromNow());
 							$(this).tooltip().css('cursor', 'pointer');
 						});
+
+						$('a[title]').tooltip();
 					});
 				</script>
 				
