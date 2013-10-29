@@ -5,12 +5,15 @@
 	<?$warranty   = new Warranty($serial_number)?>
 	<?//todo: make 1 query?>
 	<div class="row">
-		<div class="col-lg-1">
+		<div class="col-md-1 col-xs-4">
 			<img width="72" height="72" src="https://km.support.apple.com.edgekey.net/kb/securedImage.jsp?configcode=<?=substr($serial_number, 8)?>&amp;size=120x120" />
 		</div>
-		<div class="col-lg-3">
+		<div class="col-md-3 col-xs-8">
 			<h4>
-				<?=$machine->computer_name?><br />
+				<?=$machine->computer_name?><?if(conf('vnc_link')):?>
+
+				<a title="Remote control (vnc)" style="margin-top: -4px" class="btn btn-default btn-xs" href="<?printf(conf('vnc_link'), $report->remote_ip)?>"><i class="icon-eye-open"></i></a>
+				<?endif?><br />
 			</h4>
 			<small class="muted">
 				<?=$machine->machine_desc?>
@@ -46,12 +49,8 @@
 				<a class="btn btn-default btn-xs" href="<?php echo url('clients/recheck_warranty/' . $serial_number);?>">
 					Recheck Warranty Status
 				</a>
-				<?if(conf('vnc_link')):?>
-
-				<a class="btn btn-default btn-xs" href="<?printf(conf('vnc_link'), $report->remote_ip)?>">Remote Control (vnc)</a>
-				<?endif?>
 		</div>
-		<div class="col-lg-4">
+		<div class="col-md-4 col-xs-6">
 			<small>
 				<dl class="dl-horizontal">
 					<dt>Software</dt>
@@ -74,7 +73,7 @@
 				</dl>
 			</small>
 		</div>
-		<div class="col-lg-4">
+		<div class="col-md-4 col-xs-6">
 			<small>
 				<dl class="dl-horizontal">
 					<dt>Disk size</dt>
